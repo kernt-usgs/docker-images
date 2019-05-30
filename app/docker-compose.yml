@@ -5,14 +5,8 @@ services:
     image: nhmusgs/prms
     hostname: prms
     container_name: prms
-    volumes:
-     - .:/var/lib/nhm
   ofp:
     build: .
     image: nhmusgs/ofp
     hostname: ofp
     container_name: ofp
-    volumes:
-     - .:/var/lib/nhm
-volumes:
-     .:
