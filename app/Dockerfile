@@ -41,13 +41,14 @@ RUN wget -P /root \
 RUN conda update -n base conda -y && conda env update
 RUN rm -f /root/environment.yml
 
-# create NHM directories under /var/lib
-RUN mkdir -p /var/lib/nhm/ofp/Data
+# create ofp directory under /var/lib
 RUN mkdir -p /var/lib/nhm/ofp/Output
 
 # clone ofp source
-RUN cd /usr/local/src && git clone -b ashalper --depth=1 \
-    https://github.com/ashalper-usgs/onhm-fetcher-parser.git
+RUN pwd
+RUN printenv
+RUN cd /usr/local/src && git clone --depth=1 \
+    https://github.com/nhm-usgs/onhm-fetcher-parser.git
 
 # clone PRMS source
 RUN cd /usr/local/src && \
@@ -107,9 +108,10 @@ RUN ln -s /usr/local/src/onhm-runners /root/onhm-runners
 RUN ln -s /usr/local/src/onhm-verify-eval /root/onhm-verify-eval
 RUN ln -s /var/lib/nhm /root/nhm
 
-# controller script
-ADD nhm /usr/local/bin
-RUN chmod 744 /usr/local/bin/nhm
+# entrypoint scripts
+ADD ofp-entrypoint /usr/local/bin
+ADD prms-entrypoint /usr/local/bin
+RUN cd /usr/local/bin && chmod 744 ofp-entrypoint prms-entrypoint
 
 # ...and remain running
 CMD ["sleep", "infinity"]

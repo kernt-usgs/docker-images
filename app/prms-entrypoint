@@ -1,23 +1,12 @@
 #! /bin/sh
 #
-#  File - nhm
+#  File - prms-entrypoint
 #
-#  Purpose - Controller script for National Hydrologic Model (NHM).
+#  Purpose - Docker entrypoint script for National Hydrologic Model
+#            (NHM), PRMS model.
 #
 #  Author - Andrew Halper
 #
-
-# if ofp, HRU shapefiles are not present...
-if [ ! -d /var/lib/nhm/ofp/Data ]; then
-    # ...download them
-    wget -P /var/lib/nhm/ofp \
-      ftp://ftpext.usgs.gov/pub/cr/co/denver/BRR-CR/pub/rmcd/Data_hru_shp.tar.gz
-
-    if [ ! -d /var/lib/nhm/ofp/Data ]; then
-	cd /var/lib/nhm/ofp && tar -xvzf Data_hru_shp.tar.gz
-	rm -f /var/lib/nhm/ofp/Data_hru_shp.tar.gz
-    fi
-fi
 
 # if PRMS workspace is not present...
 if [ ! -d /var/lib/nhm/NHM-PRMS_CONUS ]; then
@@ -33,7 +22,5 @@ if [ ! -d /var/lib/nhm/NHM-PRMS_CONUS ]; then
     fi
 fi
 
-# TODO: run ofp
-
-# TODO: should only be relevant in development
+# TODO: call prms
 sleep infinity
