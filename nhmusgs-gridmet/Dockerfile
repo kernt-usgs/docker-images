@@ -13,5 +13,5 @@ USER $USER
 
 WORKDIR $SOURCE_DIR
 
-ENTRYPOINT \
-  ["/opt/conda/bin/python", "-u", "onhm-fetcher-parser/pkg/Gridmet_current.py"]
+#ENTRYPOINT \
+  #["/opt/conda/bin/python", "-u", "onhm-fetcher-parser/pkg/Gridmet_current.py"]
